@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:10.17
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: cron
+    ports: 
+      - '5434:5432'
+  app:
+    build: .
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
